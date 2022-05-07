@@ -64,7 +64,9 @@ def render(im0, height, width, random_seed):
         #log_relscale = np.random.uniform(-np.log(1.3), np.log(1.3))
         #relscale = np.exp(log_relscale)
         relscale = 1.0
-        im2 = skimage.transform.rescale(im2, (scale*relscale**0.5, scale/relscale**0.5), mode='reflect')
+        # import pdb
+        # pdb.set_trace()
+        im2 = skimage.transform.rescale(im2, (scale*relscale**0.5,scale*relscale**0.5, 1), mode='reflect')
         if im2.shape[0] < height or im2.shape[1] < width:
             flag = True
 
@@ -156,6 +158,8 @@ def main():
             if not os.path.isfile(oFile):
                 refFile = np.random.choice(data)
                 im_crop = get_image(iFile, refFile, crop_height, crop_width, random_seed=count*100000+num*10, transpose=False)
+                # import pdb
+                # pdb.set_trace()
                 skimage.io.imsave(oFile, im_crop)
             print('%d:%d, %d:%d' % (num_images, num, num_repeats, count), end='\r')
 
